@@ -9,19 +9,17 @@ import java.util.Scanner;
 import javax.net.ssl.HttpsURLConnection;
 
 
-public class Comm {
+public class Comm{
 
     private static String urlLink = "";
     private static Scanner input;
     private static String city = "";
     private static String[] weatherData;
 
-    public Comm()
+    public Comm(String inputCity)
             throws IOException{
         weatherData = new String[28];
-        input = new Scanner(System.in);
-        System.out.println("Enter the city you would like to check the weather for");
-        city = input.next();
+        city = inputCity;
         urlLink = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=d07e9d02bba6e034e06a15cd0c50a7f4";
         System.out.println(urlLink);
         URL url = new URL(urlLink);
@@ -36,7 +34,7 @@ public class Comm {
         weatherDataStorage(response.toString());
     }
 
-    public static void weatherDataStorage(String data){
+    private static void weatherDataStorage(String data){
         int dataIndex = 0;
         for(int i = 0; i < data.length(); i++){
             if(data.charAt(i) == '{' );
@@ -52,7 +50,11 @@ public class Comm {
 
         }System.out.println();
     }
-    public static void cleaner(){
+    private static void cleaner(){
+        int dataLength;
 
+    }
+    public String[] accessData(){
+        return weatherData;
     }
 }
