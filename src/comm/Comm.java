@@ -14,9 +14,11 @@ public class Comm {
     private static String urlLink = "";
     private static Scanner input;
     private static String city = "";
+    private static String[] weatherData;
 
     public Comm()
             throws IOException{
+        weatherData = new String[28];
         input = new Scanner(System.in);
         System.out.println("Enter the city you would like to check the weather for");
         city = input.next();
@@ -31,22 +33,26 @@ public class Comm {
             response.append(inputLine);
         }
         in.close();
-        weatherDataPrinter(response.toString());
+        weatherDataStorage(response.toString());
     }
 
-    public static void weatherDataPrinter(String data){
-        int dataLength = data.length();
+    public static void weatherDataStorage(String data){
+        int dataIndex = 0;
         for(int i = 0; i < data.length(); i++){
             if(data.charAt(i) == '{' );
             else if(data.charAt(i) == '}' );
-            else if(data.charAt(i) == ','){
-                System.out.print(data.charAt(i));
+            else if(data.charAt(i) == ',') {
                 System.out.println();
+                dataIndex++;
             }
             else{
                 System.out.print(data.charAt(i));
+                weatherData[dataIndex] = weatherData[dataIndex] + data.charAt(i);
             }
 
         }System.out.println();
+    }
+    public static void cleaner(){
+
     }
 }
